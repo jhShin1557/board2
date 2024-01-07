@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="~{template/fragment/header :: header}"></div>
+<div class="container bg-light" style="height: 100vh">
+    <div class="h2 mb-3">게시판</div>
+    <form action="" method="post">
+        <input type="text" class="form-control w-75 mb-2" placeholder="제목을 입력해 주세요" name="title">
+        <div class="form-text mb-3">&nbsp;&#8251; 음란물, 차별, 비하, 혐오 및 초상권, 저작권 침해 게시물은 민, 형사상의 책임을 질 수 있습니다.</div>
+        <textarea class="form-control" rows="8" style="min-height: 300px;" name="content">
+
+        </textarea>
+        <div class="d-flex mt-2">
+            <button class="btn btn-primary me-2">등록</button>
+            <button class="btn btn-secondary" type="button" onclick="location.href='/board'">취소</button>
+        </div>
+        <div th:insert="~{template/fragment/footer :: footer}" style="margin-top: 400px"></div>
+    </form>
+</div>
+
+</body>
+</html>
