@@ -14,6 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -45,10 +48,15 @@ public class Page2Controller {
     }
 
     @PostMapping("/write")
-    public String write(@SessionAttribute(name = "member", required = false) User member, @ModelAttribute Board board) {
+    public String write(@SessionAttribute(name = "member", required = false) User member, @ModelAttribute Board board) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = dateFormat.parse("2024-02-19");
+
         board.setWriter_id(member.getId());
         board.setWriter(member.getNickname());
+        board.setReg_date(date);
         boardDao.write(board);
+        log.info("board={}", board);
         return "redirect:/board/lists";
     }
 

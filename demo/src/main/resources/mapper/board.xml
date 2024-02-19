@@ -26,4 +26,7 @@
         update board set title = #{title}, content = #{content} where no = #{no}
     </update>
 
+    <delete id="clear">
+        delete from board
+    </delete>
 </mapper>

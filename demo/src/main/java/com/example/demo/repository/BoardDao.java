@@ -38,4 +38,8 @@ public class BoardDao {
     public void modify(Board board) {
         aboutBoard.modify(board);
     }
+
+    public void clear() {
+        aboutBoard.clear();
+    }
 }

@@ -14,5 +14,5 @@ public interface AboutBoard {
     void delete(Integer number);
     void increaseViews(Integer number);
     void modify(Board board);
-
+    void clear();
 }
