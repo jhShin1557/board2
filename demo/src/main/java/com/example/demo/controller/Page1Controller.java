@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.User;
 import com.example.demo.repository.AboutUser;
+import com.example.demo.repository.UserDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,11 +20,11 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class Page1Controller {
 
-    private final AboutUser aboutUser;
+    private final UserDao userDao;
 
     @Autowired
-    public Page1Controller(AboutUser aboutUser) {
-        this.aboutUser = aboutUser;
+    public Page1Controller(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @GetMapping("/")
@@ -31,7 +32,7 @@ public class Page1Controller {
         if (member == null) {
             return "page1/home";
         }
-        User loginMember = aboutUser.findById(member.getId());
+        User loginMember = userDao.findById(member.getId());
         model.addAttribute("member", loginMember);
         return "page1/home";
     }
@@ -70,13 +71,14 @@ public class Page1Controller {
             return "page1/join";
         }
 
-        User existUser = aboutUser.isExist(user);
+        User existUser = userDao.isExist(user);
         if (existUser != null) {
             bindingResult.addError(new FieldError("user", "id", user.getId(), false, null, null, "사용중인 아이디입니다."));
             return "page1/join";
         }
 
-        aboutUser.join(user);
+        userDao.join(user);
+
         return "redirect:/";
     }
 
@@ -101,7 +103,7 @@ public class Page1Controller {
             return "page1/login";
         }
 
-        User isCorrect = aboutUser.isCorrect(user);
+        User isCorrect = userDao.isCorrect(user);
 
         if (isCorrect == null) {
             bindingResult.addError(new ObjectError("user",  "아이디 또는 비밀번호를 잘못 입력했습니다."));

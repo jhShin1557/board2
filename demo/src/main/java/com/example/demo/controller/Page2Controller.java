@@ -5,6 +5,8 @@ import com.example.demo.domain.Like;
 import com.example.demo.domain.User;
 import com.example.demo.repository.AboutBoard;
 import com.example.demo.repository.AboutUser;
+import com.example.demo.repository.BoardDao;
+import com.example.demo.repository.UserDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,17 +21,17 @@ import java.util.List;
 @RequestMapping("/board")
 public class Page2Controller {
 
-    private final AboutUser aboutUser;
-    private final AboutBoard aboutBoard;
+    private final UserDao userDao;
+    private final BoardDao boardDao;
     @Autowired
-    public Page2Controller(AboutUser aboutUser, AboutBoard aboutBoard) {
-        this.aboutUser = aboutUser;
-        this.aboutBoard = aboutBoard;
+    public Page2Controller(UserDao userDao, BoardDao boardDao) {
+        this.userDao = userDao;
+        this.boardDao = boardDao;
     }
 
     @GetMapping("/lists")
     public String board(@SessionAttribute(name = "member", required = false) User member, Model model) {
-        List<Board> list = aboutBoard.list();
+        List<Board> list = boardDao.list();
         model.addAttribute("member", member);
         model.addAttribute("list", list);
         return "page2/board";
@@ -46,15 +48,15 @@ public class Page2Controller {
     public String write(@SessionAttribute(name = "member", required = false) User member, @ModelAttribute Board board) {
         board.setWriter_id(member.getId());
         board.setWriter(member.getNickname());
-        aboutBoard.write(board);
+        boardDao.write(board);
         return "redirect:/board/lists";
     }
 
     //read
     @GetMapping("/{number}")
     public String read(@SessionAttribute(name = "member", required = false) User member, @PathVariable("number") Integer number, Model model) {
-        Board board = aboutBoard.findPage(number);
-        aboutBoard.increaseViews(number);
+        Board board = boardDao.findPage(number);
+        boardDao.increaseViews(number);
         model.addAttribute("board", board);
         model.addAttribute("member", member);
         return "page2/read";
@@ -62,7 +64,7 @@ public class Page2Controller {
 
     @GetMapping("/{number}/modify")
     public String modifyForm(@SessionAttribute(name = "member", required = false) User member, @PathVariable("number") Integer number, Model model) {
-        Board board = aboutBoard.findPage(number);
+        Board board = boardDao.findPage(number);
         model.addAttribute("board", board);
         model.addAttribute("member", member);
         return "page2/modify";
@@ -72,14 +74,14 @@ public class Page2Controller {
     public String modify(@SessionAttribute(name = "member", required = false) User member, @PathVariable("number") Long number,
                          @ModelAttribute Board board, RedirectAttributes redirectAttributes, Model model) {
         board.setNo(number);
-        aboutBoard.modify(board);
+        boardDao.modify(board);
         redirectAttributes.addAttribute("number", number);
         return "redirect:/board/{number}";
     }
 
     @GetMapping("/delete")
     public String delete(Integer no) {
-        aboutBoard.delete(no);
+        boardDao.delete(no);
         return "redirect:/board/lists";
     }
 
