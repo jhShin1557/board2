@@ -20,13 +20,13 @@
         <button class="btn btn-danger me-auto">공지</button>
         <div class="dropdown">
             <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                개수
+                <span th:text="|${pageDto.pageSize}개|"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">10개</a></li>
-                <li><a class="dropdown-item" href="#">30개</a></li>
-                <li><a class="dropdown-item" href="#">50개</a></li>
-                <li><a class="dropdown-item" href="#">100개</a></li>
+                <li><a class="dropdown-item" th:href="@{/board/lists?pageSize=10}">10개</a></li>
+                <li><a class="dropdown-item" th:href="@{/board/lists?pageSize=30}">30개</a></li>
+                <li><a class="dropdown-item" th:href="@{/board/lists?pageSize=50}">50개</a></li>
+                <li><a class="dropdown-item" th:href="@{/board/lists?pageSize=100}">100개</a></li>
             </ul>
         </div>
         <div th:if="${member} == null">
@@ -90,30 +90,30 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item" th:if="${pageDto.startArrow != false}">
-                    <a class="page-link" th:href="@{/board/lists?page=1}" aria-label="Previous">
+                    <a class="page-link" th:href="@{/board/lists(page=1, pageSize=${pageDto.pageSize})}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <li class="page-item" th:if="${pageDto.prevArrow !=false}">
-                    <a class="page-link" th:href="@{/board/lists(page=${pageDto.startPage - 1})}" aria-label="Previous">
+                    <a class="page-link" th:href="@{/board/lists(page=${pageDto.startPage - 1}, pageSize=${pageDto.pageSize})}" aria-label="Previous">
                         <span aria-hidden="true" style="font-size: 14px">&lt;</span>
                     </a>
                 </li>
                 <th:block th:each="pageNum : ${#numbers.sequence(pageDto.startPage, pageDto.endPage)}">
                     <li class="page-item" th:if="${pageNum != pageDto.page}">
-                        <a class="page-link" th:href="@{/board/lists(page=${pageNum})}">[[${pageNum}]]</a>
+                        <a class="page-link" th:href="@{/board/lists(page=${pageNum}, pageSize=${pageDto.pageSize})}">[[${pageNum}]]</a>
                     </li>
                     <li class="page-item active" th:unless="${pageNum != pageDto.page}">
                         <span class="page-link" th:href="@{/board/lists(page=${pageNum})}">[[${pageNum}]]</span>
                     </li>
                 </th:block>
                 <li class="page-item" th:if="${pageDto.nextArrow != false}">
-                    <a class="page-link" th:href="@{/board/lists(page=${pageDto.endPage + 1})}" aria-label="Next">
+                    <a class="page-link" th:href="@{/board/lists(page=${pageDto.endPage + 1}, pageSize=${pageDto.pageSize})}" aria-label="Next">
                         <span aria-hidden="true" style="font-size: 14px">&gt;</span>
                     </a>
                 </li>
                 <li class="page-item" th:if="${pageDto.endArrow != false}">
-                    <a class="page-link" th:href="@{/board/lists(page=${pageDto.totalPage})}" aria-label="Next">
+                    <a class="page-link" th:href="@{/board/lists(page=${pageDto.totalPage}, pageSize=${pageDto.pageSize})}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
