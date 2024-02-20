@@ -85,6 +85,7 @@
         </tr>
         </tbody>
     </table>
+    <!-- 페이지네이션 -->
     <div class="d-flex justify-content-center mt-5">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
@@ -98,9 +99,14 @@
                         <span aria-hidden="true" style="font-size: 14px">&lt;</span>
                     </a>
                 </li>
-                <li class="page-item" th:each="pageNum : ${#numbers.sequence(pageDto.startPage, pageDto.endPage)}">
-                    <a class="page-link" th:href="@{/board/lists(page=${pageNum})}">[[${pageNum}]]</a>
-                </li>
+                <th:block th:each="pageNum : ${#numbers.sequence(pageDto.startPage, pageDto.endPage)}">
+                    <li class="page-item" th:if="${pageNum != pageDto.page}">
+                        <a class="page-link" th:href="@{/board/lists(page=${pageNum})}">[[${pageNum}]]</a>
+                    </li>
+                    <li class="page-item active" th:unless="${pageNum != pageDto.page}">
+                        <span class="page-link" th:href="@{/board/lists(page=${pageNum})}">[[${pageNum}]]</span>
+                    </li>
+                </th:block>
                 <li class="page-item" th:if="${pageDto.nextArrow != false}">
                     <a class="page-link" th:href="@{/board/lists(page=${pageDto.endPage + 1})}" aria-label="Next">
                         <span aria-hidden="true" style="font-size: 14px">&gt;</span>
