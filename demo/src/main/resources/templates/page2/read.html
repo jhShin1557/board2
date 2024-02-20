@@ -7,7 +7,7 @@
 </head>
 <body>
 <div th:insert="~{template/fragment/header :: header}"></div>
-<div class="container bg-light" style="height: 100vh">
+<div class="container" style="height: 100vh">
     <div class="h2 mb-3">게시판</div>
     <form action="" method="post">
         <input type="text" class="form-control w-75 mb-2" placeholder="제목을 입력해 주세요" name="title" th:value="${board.title}" readonly>
