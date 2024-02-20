@@ -12,17 +12,18 @@
 </head>
 <body>
 <div th:insert="~{template/fragment/header :: header}"></div>
-<div class="container bg-light" style="height: 75vh">
+<div class="container">
     <div class="h2 mb-3">게시판</div>
     <div class="d-flex">
         <button class="btn btn-primary me-2">전체글</button>
-        <button class="btn btn-secondary me-2">개념글</button>
+        <button class="btn btn-secondary me-2">인기글</button>
         <button class="btn btn-danger me-auto">공지</button>
         <div class="dropdown">
             <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 개수
             </button>
             <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">10개</a></li>
                 <li><a class="dropdown-item" href="#">30개</a></li>
                 <li><a class="dropdown-item" href="#">50개</a></li>
                 <li><a class="dropdown-item" href="#">100개</a></li>
@@ -84,6 +85,35 @@
         </tr>
         </tbody>
     </table>
+    <div class="d-flex justify-content-center mt-5">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" th:if="${pageDto.startArrow != false}">
+                    <a class="page-link" th:href="@{/board/lists?page=1}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:if="${pageDto.prevArrow !=false}">
+                    <a class="page-link" th:href="@{/board/lists(page=${pageDto.startPage - 1})}" aria-label="Previous">
+                        <span aria-hidden="true" style="font-size: 14px">&lt;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:each="pageNum : ${#numbers.sequence(pageDto.startPage, pageDto.endPage)}">
+                    <a class="page-link" th:href="@{/board/lists(page=${pageNum})}">[[${pageNum}]]</a>
+                </li>
+                <li class="page-item" th:if="${pageDto.nextArrow != false}">
+                    <a class="page-link" th:href="@{/board/lists(page=${pageDto.endPage + 1})}" aria-label="Next">
+                        <span aria-hidden="true" style="font-size: 14px">&gt;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:if="${pageDto.endArrow != false}">
+                    <a class="page-link" th:href="@{/board/lists(page=${pageDto.totalPage})}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

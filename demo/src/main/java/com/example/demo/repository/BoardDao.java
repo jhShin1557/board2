@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.domain.Board;
+import com.example.demo.domain.PageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,12 +16,16 @@ public class BoardDao {
     public BoardDao(AboutBoard aboutBoard) {
         this.aboutBoard = aboutBoard;
     }
+
+    public int count() {
+        return aboutBoard.count();
+    }
     public void write(Board board) {
         aboutBoard.write(board);
     }
 
-    public List<Board> list() {
-        return aboutBoard.list();
+    public List<Board> list(PageDto pageDto) {
+        return aboutBoard.list(pageDto);
     }
 
     public Board findPage(Integer number) {
