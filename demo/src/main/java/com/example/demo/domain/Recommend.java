@@ -6,6 +6,6 @@ import lombok.Data;
 public class Recommend {
     private Integer no;
     private Integer boardNo;
-    private String recommendNo;
+    private String recommendId;
     private boolean click;
 }
