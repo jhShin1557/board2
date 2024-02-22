@@ -53,7 +53,7 @@ public class Page2Controller {
     @PostMapping("/write")
     public String write(@SessionAttribute(name = "member", required = false) User member, @ModelAttribute Board board) throws ParseException {
 
-        board.setWriter_id(member.getId());
+        board.setWriterId(member.getId());
         board.setWriter(member.getNickname());
         boardDao.write(board);
         log.info("board={}", board);

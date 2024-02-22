@@ -7,7 +7,7 @@
     </select>
 
     <insert id="write" parameterType="com.example.demo.domain.Board" useGeneratedKeys="true" keyProperty="no">
-        insert into board (title, content,writer_id, writer, reg_date) values (#{title}, #{content}, #{writer_id}, #{writer}, now())
+        insert into board (title, content, writer_id, writer, reg_date) values (#{title}, #{content}, #{writerId}, #{writer}, now())
     </insert>
 
     <select id="list" parameterType="com.example.demo.domain.PageDto" resultType="com.example.demo.domain.Board">
@@ -26,11 +26,17 @@
         update board set views = views + 1 where no = #{number}
     </update>
 
+    <update id="increaseRecommend" parameterType="Integer">
+        update board set recommend = recommend + 1 where no = #{number}
+    </update>
+
     <update id="modify" parameterType="com.example.demo.domain.Board">
         update board set title = #{title}, content = #{content} where no = #{no}
     </update>
 
-
+    <insert id="recommend" parameterType="com.example.demo.domain.Recommend" useGeneratedKeys="true" keyProperty="no">
+        insert into recommend (board_no, recommend_id, click) values (#{boardNo}, #{recommendId}, #{click})
+    </insert>
 
     <delete id="clear">
         delete from board

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 @Slf4j
 @Repository
-public class UserDao {
+public class UserDao implements AboutUser{
 
     private final AboutUser aboutUser;
 
@@ -18,7 +18,6 @@ public class UserDao {
     public void join(User user) {
         aboutUser.join(user);
         log.info("오버라이딩 메서드");
-
     }
 
     public User isExist(User user) {

@@ -9,9 +9,9 @@ public class Board {
     private Long no;
     private String title;
     private String content;
-    private String writer_id;
+    private String writerId;
     private String writer;
-    private Date reg_date;
+    private Date regDate;
     private Integer views;
     private Integer recommend;
 }

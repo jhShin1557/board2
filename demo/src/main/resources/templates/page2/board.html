@@ -75,7 +75,7 @@
             <td th:text="${board.no}" class="text-center"></td>
             <td><a th:href="@{/board/{no}(no=${board.no})}" th:text="${board.title}" class="text-decoration-none text-dark"></a></td>
             <td th:text="${board.writer}" class="text-center"></td>
-            <td th:text="${#dates.format(board.reg_date, 'yyyy-MM-dd')}" class="text-center"></td>
+            <td th:text="${#dates.format(board.regDate, 'yyyy-MM-dd')}" class="text-center"></td>
             <td th:text="${board.views}" class="text-center"></td>
             <td th:text="${board.recommend}" class="text-center"></td>
         </tr>
