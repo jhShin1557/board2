@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -21,10 +20,11 @@ public class JsonController {
         this.boardDao = boardDao;
     }
     @RequestMapping("/jsonTest")
-    public void jsonMapping(@RequestBody Recommend recommend) {
-      log.info("recommend={}", recommend);
+    public Board jsonMapping(@RequestBody Recommend recommend) {
       Integer number = recommend.getBoardNo();
       boardDao.recommend(recommend);
       boardDao.increaseRecommend(number);
+      Board board = boardDao.findPage(number);
+      return board;
     }
 }
