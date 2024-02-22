@@ -20,7 +20,7 @@
         </div>
         <textarea class="form-control" rows="8" style="min-height: 300px;" name="content" readonly>[[${board.content}]]</textarea>
         <div th:if="${member} != null">
-            <div class="d-flex mt-2" th:if="${member.id} == ${board.writer_id}">
+            <div class="d-flex mt-2" th:if="${member.id} == ${board.writerId}">
                 <button class="btn btn-success me-2" type="button" th:onclick="|location.href='@{/board/{no}/modify(no=${board.no})}'|">수정</button>
                 <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteButton">삭제</button>
                 <!-- Modal -->
@@ -106,8 +106,8 @@
               "Content-Type" : "application/json"
             },
             data: JSON.stringify({
-                "board_no" : boardNo,
-                "recommend_id": recommendId,
+                "boardNo" : boardNo,
+                "recommendId": recommendId,
                 "click" : true
             }),
             success: function(result) {
