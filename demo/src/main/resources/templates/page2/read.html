@@ -14,7 +14,7 @@
         <div class="d-flex mb-3">
             &nbsp;
             <span class="form-text me-3" th:text="${board.writer}"></span>
-            <span class="form-text me-auto" th:text="${#dates.format(board.reg_date, 'yyyy-MM-dd HH:mm:ss')}"></span>
+            <span class="form-text me-auto" th:text="${#dates.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
             <span class="form-text me-2" th:text="|조회 ${board.views}|"></span>
             <span class="form-text" th:text="|추천 ${board.recommend}|"></span>
         </div>
