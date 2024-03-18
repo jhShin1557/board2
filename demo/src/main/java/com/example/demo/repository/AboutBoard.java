@@ -19,4 +19,8 @@ public interface AboutBoard {
     void recommend(Recommend recommend);
     void modify(Board board);
     void clear();
+    void clearRecommend();
+    Recommend findRecommendId(Recommend recommend);
+
+    Boolean click(Recommend recommend);
 }

@@ -20,14 +20,17 @@ public class UserDao implements AboutUser{
         log.info("오버라이딩 메서드");
     }
 
+    @Override
     public User isExist(User user) {
         return aboutUser.isExist(user);
     }
 
+    @Override
     public User isCorrect(User user) {
         return aboutUser.isCorrect(user);
     }
 
+    @Override
     public User findById(String id) {
         return aboutUser.findById(id);
     }

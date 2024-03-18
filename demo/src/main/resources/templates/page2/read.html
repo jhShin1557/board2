@@ -16,6 +16,7 @@
             <span class="form-text me-3" th:text="${board.writer}"></span>
             <span class="form-text me-auto" th:text="${#dates.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
             <span class="form-text me-2" th:text="|조회 ${board.views}|"></span>
+            <span class="form-text me-2" id="recommendText" th:text="|추천 ${board.recommend}|"></span>
         </div>
         <textarea class="form-control" rows="8" style="min-height: 300px;" name="content" readonly>[[${board.content}]]</textarea>
         <div th:if="${member} != null">
@@ -67,7 +68,7 @@
             </div>
             <div style="width: 80px; height: 80px" th:if="${member} != null">
                 <button type="button" style="border: none; background-color: white" id="recommendBtn">
-                    <img src="/img/recommend.png" alt="" class="img-fluid" style="cursor: pointer">
+                    <img src="/img/recommend.png" id="recommendImg" alt="" class="img-fluid" style="cursor: pointer">
                 </button>
             </div>
             <span th:text="${board.recommend}" id="recommendNum" class="h1 ms-3" style="line-height: 70px; color: red"></span>
@@ -100,7 +101,7 @@
     function recommend() {
         $.ajax({
             type: "post",
-            url: "/jsonTest",
+            url: "/recommend",
             headers: {
               "Content-Type" : "application/json"
             },
@@ -114,6 +115,8 @@
                 console.log("전달받은 데이터:", result);
                 console.log("추천수: ", result.recommend)
                 document.getElementById("recommendNum").innerText = result.recommend;
+                document.getElementById("recommendText").innerText = "추천 " + result.recommend;
+                document.getElementById("recommendImg").src = "/img/recommend2.png";
             },
             error: function() {
                 console.log("전송 실패")

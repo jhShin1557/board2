@@ -19,12 +19,12 @@ public class JsonController {
     public JsonController(BoardDao boardDao) {
         this.boardDao = boardDao;
     }
-    @RequestMapping("/jsonTest")
+    @RequestMapping("/recommend")
     public Board jsonMapping(@RequestBody Recommend recommend) {
-      Integer number = recommend.getBoardNo();
+      Integer boardNo = recommend.getBoardNo();
       boardDao.recommend(recommend);
-      boardDao.increaseRecommend(number);
-      Board board = boardDao.findPage(number);
+      boardDao.increaseRecommend(boardNo);
+      Board board = boardDao.findPage(boardNo);
       return board;
     }
 }

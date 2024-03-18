@@ -41,4 +41,9 @@
     <delete id="clear">
         delete from board
     </delete>
+
+    <delete id="clearRecommend">
+        delete from recommend
+    </delete>
+
 </mapper>

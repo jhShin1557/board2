@@ -24,10 +24,10 @@ class Page2ControllerTest {
         Board board = new Board();
         board.setTitle("테스트");
         board.setContent("테스트");
-        board.setWriter_id("관리자");
+        board.setWriterId("관리자");
         board.setWriter("관리자");
 
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < 3; i++) {
             boardDao.write(board);
         }
     }
@@ -35,6 +35,7 @@ class Page2ControllerTest {
     @Test
     void clear() {
         boardDao.clear();
+        boardDao.clearRecommend();
     }
 
 }
