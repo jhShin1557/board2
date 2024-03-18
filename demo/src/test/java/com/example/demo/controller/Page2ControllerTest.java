@@ -27,7 +27,7 @@ class Page2ControllerTest {
         board.setWriterId("관리자");
         board.setWriter("관리자");
 
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 200; i++) {
             boardDao.write(board);
         }
     }
