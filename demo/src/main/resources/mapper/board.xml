@@ -30,13 +30,20 @@
         update board set recommend = recommend + 1 where no = #{number}
     </update>
 
+    <update id="decreaseRecommend" parameterType="Integer">
+        update board set recommend = recommend - 1 where no = #{number}
+    </update>
+
     <update id="modify" parameterType="com.example.demo.domain.Board">
         update board set title = #{title}, content = #{content} where no = #{no}
     </update>
 
     <insert id="recommend" parameterType="com.example.demo.domain.Recommend" useGeneratedKeys="true" keyProperty="no">
-        insert into recommend (board_no, recommend_id, click) values (#{boardNo}, #{recommendId}, #{click})
+        insert into recommend (board_no, recommend_id) values (#{boardNo}, #{recommendId})
     </insert>
+    <delete id="cancelRecommend" parameterType="com.example.demo.domain.Recommend">
+        delete from recommend where board_no = #{boardNo} and recommend_id = #{recommendId}
+    </delete>
 
     <delete id="clear">
         delete from board
@@ -46,4 +53,7 @@
         delete from recommend
     </delete>
 
+    <select id="findRecommendId" parameterType="com.example.demo.domain.Recommend" resultType="com.example.demo.domain.Recommend">
+        select * from recommend where board_no = #{boardNo} and recommend_id = #{recommendId}
+    </select>
 </mapper>

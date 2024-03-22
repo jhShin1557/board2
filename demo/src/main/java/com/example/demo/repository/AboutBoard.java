@@ -16,11 +16,12 @@ public interface AboutBoard {
     void delete(Integer number);
     void increaseViews(Integer number);
     void increaseRecommend(Integer number);
+    void decreaseRecommend(Integer number);
     void recommend(Recommend recommend);
+    void cancelRecommend(Recommend recommend);
     void modify(Board board);
     void clear();
     void clearRecommend();
     Recommend findRecommendId(Recommend recommend);
 
-    Boolean click(Recommend recommend);
 }

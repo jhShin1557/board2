@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.ReferUrl;
 import com.example.demo.domain.User;
 import com.example.demo.repository.UserDao;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
@@ -27,7 +29,10 @@ public class Page1Controller {
     }
 
     @GetMapping("/")
-    public String main(@SessionAttribute(name = "member", required = false) User member, Model model) {
+    public String main(@SessionAttribute(name = "member", required = false) User member, Model model, HttpServletRequest request) {
+
+        ReferUrl.savePreviousUrl(request);
+
         if (member == null) {
             return "page1/home";
         }
@@ -82,7 +87,8 @@ public class Page1Controller {
     }
 
     @GetMapping("/login")
-    public String loginForm(@ModelAttribute("user") User user) {
+    public String loginForm(@ModelAttribute("user") User user, HttpServletRequest request) {
+        ReferUrl.savePreviousUrl(request);
         return "page1/login";
     }
 
@@ -111,10 +117,15 @@ public class Page1Controller {
         }
 
         User member = isCorrect;
-
         HttpSession session = request.getSession();
         session.setAttribute("member", member);
-        return "redirect:/";
+        String previousUrl = (String) session.getAttribute("previousUrl");
+
+        if (previousUrl != null) {
+            return "redirect:" + previousUrl;
+        } else {
+            return "redirect:/";
+        }
     }
 
     @PostMapping("/logout")
@@ -124,6 +135,7 @@ public class Page1Controller {
         if (session != null) {
             session.invalidate();
         }
+
         return "redirect:/";
     }
 

@@ -69,7 +69,7 @@
             <!-- 추천버튼 -->
             <div style="width: 80px; height: 80px" th:if="${member} != null">
                 <button type="button" style="border: none; background-color: white" id="recommendBtn">
-                    <img src="/img/recommend.png" id="recommendImg" alt="" class="img-fluid" style="cursor: pointer">
+                        <img src="/img/recommend.png" id="recommendImg" alt="" class="img-fluid" style="cursor: pointer">
                 </button>
             </div>
             <span th:text="${board.recommend}" id="recommendNum" class="h1 ms-3" style="line-height: 70px; color: red"></span>
@@ -109,16 +109,17 @@
             data: JSON.stringify({
                 "boardNo" : boardNo,
                 "recommendId": recommendId,
-                "click" : true
             }),
             success: function(result) {
+                console.log("---------------------------")
                 console.log("전송 성공");
                 console.log("전달받은 데이터:", result);
                 console.log("추천수: ", result.recommend)
+                console.log("---------------------------")
                 document.getElementById("recommendNum").innerText = result.recommend;
                 document.getElementById("recommendText").innerText = "추천 " + result.recommend;
-                document.getElementById("recommendImg").src = "/img/recommend2.png";
             },
+
             error: function() {
                 console.log("전송 실패")
             }

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.Board;
 import com.example.demo.domain.PageDto;
+import com.example.demo.domain.ReferUrl;
 import com.example.demo.domain.User;
 import com.example.demo.repository.BoardDao;
 import com.example.demo.repository.UserDao;
@@ -12,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.List;
 
@@ -31,7 +34,10 @@ public class Page2Controller {
     @GetMapping("/lists")
     public String board(@SessionAttribute(name = "member", required = false) User member, Model model,
                         @RequestParam(name = "page", defaultValue = "1") int page,
-                        @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {
+                        @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+                        HttpServletRequest request) {
+
+        ReferUrl.savePreviousUrl(request);
 
         int totalCount = boardDao.count();
         PageDto pageDto = new PageDto(page, pageSize, totalCount);

@@ -48,8 +48,8 @@
                 <button type="button" class="btn btn-primary" onclick="location.href='/join'">Sign-up</button>
             </div>
             <div class="col-md-3 text-end d-flex justify-content-end" th:if="${member} != null">
-                <button type="button" class="btn btn-outline-primary me-2"
-                        th:text="|${member.name}님|" onclick="location.href='/myPage'">Login</button>
+                <button type="button" class="btn btn-outline-primary me-2 disabled"
+                        th:text="|${member.name}님|" >Login</button>
                 <form action="/logout" method="post"><input type="submit" value="로그아웃" class="btn btn-outline-danger"></form>
             </div>
         </header>

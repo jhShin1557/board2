@@ -54,8 +54,18 @@ public class BoardDao implements AboutBoard{
     }
 
     @Override
+    public void decreaseRecommend(Integer number) {
+        aboutBoard.decreaseRecommend(number);
+    }
+
+    @Override
     public void recommend(Recommend recommend) {
         aboutBoard.recommend(recommend);
+    }
+
+    @Override
+    public void cancelRecommend(Recommend recommend) {
+        aboutBoard.cancelRecommend(recommend);
     }
 
     @Override
@@ -78,8 +88,4 @@ public class BoardDao implements AboutBoard{
         return aboutBoard.findRecommendId(recommend);
     }
 
-    @Override
-    public Boolean click(Recommend recommend) {
-        return aboutBoard.click(recommend);
-    }
 }
