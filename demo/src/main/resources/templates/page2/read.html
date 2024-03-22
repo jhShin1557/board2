@@ -93,7 +93,7 @@
 
     /*<![CDATA[*/
         const boardNo = /*[[${board.no}]]*/ 1;
-        const recommendId = /*[[${member.id}]]*/ null;
+        const recommendId = /*[[${member?.id}]]*/ null; <!-- null 가능 문법 ?. -->
     /*]]>*/
 
     $(document).ready(function() {
