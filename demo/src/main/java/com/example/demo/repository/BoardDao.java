@@ -20,8 +20,8 @@ public class BoardDao implements AboutBoard{
     }
 
     @Override
-    public int count() {
-        return aboutBoard.count();
+    public int count(Search search) {
+        return aboutBoard.count(search);
     }
 
     @Override

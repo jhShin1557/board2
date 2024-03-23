@@ -35,10 +35,8 @@ public class BoardController {
                         HttpServletRequest request) {
 
         ReferUrl.savePreviousUrl(request);
-        log.info("search.condition={}", search.getCondition());
-        log.info("search.searchValue={}", search.getSearchValue());
 
-        int totalCount = boardDao.count();
+        int totalCount = boardDao.count(search);
         PageDto pageDto = new PageDto(page, pageSize, totalCount);
 
         if (search != null) {

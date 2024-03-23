@@ -2,8 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.repository.AboutBoard">
-    <select id="count" resultType="int">
+    <select id="count" parameterType="com.example.demo.domain.Search" resultType="int">
         select count(*) from board
+        <where>
+            <choose>
+                <when test='condition == "title"'>
+                    and title like concat ('%', #{searchValue} ,'%')
+                </when>
+                <when test='condition == "content"'>
+                    and content like concat ('%', #{searchValue} ,'%')
+                </when>
+                <when test='condition == "writer"'>
+                    and writer like concat ('%', #{searchValue} ,'%')
+                </when>
+            </choose>
+        </where>
     </select>
 
     <insert id="write" parameterType="com.example.demo.domain.Board" useGeneratedKeys="true" keyProperty="no">

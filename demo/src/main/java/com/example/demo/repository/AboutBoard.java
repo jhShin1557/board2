@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface AboutBoard {
-    int count();
+    int count(Search search);
     void write(Board board);
     List<Board> list(PageDto pageDto);
     Board findPage(Integer number);

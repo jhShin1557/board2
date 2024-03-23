@@ -20,12 +20,12 @@ class BoardControllerTest {
     void write(){
 
         Board board = new Board();
-        board.setTitle("테스트");
+        board.setTitle("타이틀");
         board.setContent("테스트");
         board.setWriterId("관리자");
         board.setWriter("관리자");
 
-        for(int i = 0; i < 200; i++) {
+        for(int i = 0; i < 30; i++) {
             boardDao.write(board);
         }
     }
