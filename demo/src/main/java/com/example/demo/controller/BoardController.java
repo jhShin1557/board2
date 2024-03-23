@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.Board;
-import com.example.demo.domain.PageDto;
-import com.example.demo.domain.ReferUrl;
-import com.example.demo.domain.User;
+import com.example.demo.domain.*;
 import com.example.demo.repository.BoardDao;
 import com.example.demo.repository.UserDao;
 import lombok.extern.slf4j.Slf4j;
@@ -14,19 +11,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.List;
 
 @Slf4j
 @Controller
 @RequestMapping("/board")
-public class Page2Controller {
+public class BoardController {
 
     private final UserDao userDao;
     private final BoardDao boardDao;
     @Autowired
-    public Page2Controller(UserDao userDao, BoardDao boardDao) {
+    public BoardController(UserDao userDao, BoardDao boardDao) {
         this.userDao = userDao;
         this.boardDao = boardDao;
     }
@@ -35,14 +31,23 @@ public class Page2Controller {
     public String board(@SessionAttribute(name = "member", required = false) User member, Model model,
                         @RequestParam(name = "page", defaultValue = "1") int page,
                         @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+                        @ModelAttribute Search search,
                         HttpServletRequest request) {
 
         ReferUrl.savePreviousUrl(request);
+        log.info("search.condition={}", search.getCondition());
+        log.info("search.searchValue={}", search.getSearchValue());
 
         int totalCount = boardDao.count();
         PageDto pageDto = new PageDto(page, pageSize, totalCount);
 
+        if (search != null) {
+            pageDto.setSearchCondition(search.getCondition());
+            pageDto.setSearchValue(search.getSearchValue());
+        }
+
         List<Board> list = boardDao.list(pageDto);
+
         model.addAttribute("member", member);
         model.addAttribute("list", list);
         model.addAttribute("pageDto", pageDto);
@@ -57,7 +62,7 @@ public class Page2Controller {
     }
 
     @PostMapping("/write")
-    public String write(@SessionAttribute(name = "member", required = false) User member, @ModelAttribute Board board) throws ParseException {
+    public String write(@SessionAttribute(name = "member", required = false) User member, @ModelAttribute Board board) {
 
         board.setWriterId(member.getId());
         board.setWriter(member.getNickname());
@@ -98,6 +103,5 @@ public class Page2Controller {
         boardDao.delete(no);
         return "redirect:/board/lists";
     }
-
 
 }

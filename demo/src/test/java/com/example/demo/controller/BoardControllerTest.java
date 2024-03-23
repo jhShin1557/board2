@@ -6,15 +6,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.text.ParseException;
-
 @SpringBootTest
-class Page2ControllerTest {
+class BoardControllerTest {
 
     private final BoardDao boardDao;
 
     @Autowired
-    public Page2ControllerTest(BoardDao boardDao) {
+    public BoardControllerTest(BoardDao boardDao) {
         this.boardDao = boardDao;
     }
 

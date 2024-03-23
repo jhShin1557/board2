@@ -11,7 +11,21 @@
     </insert>
 
     <select id="list" parameterType="com.example.demo.domain.PageDto" resultType="com.example.demo.domain.Board">
-        select * from board order by no desc limit #{pageSize} offset #{offset}
+        select * from board
+        <where>
+            <choose>
+                <when test='searchCondition == "title"'>
+                    and title like concat ('%', #{searchValue} ,'%')
+                </when>
+                <when test='searchCondition == "content"'>
+                    and content like concat ('%', #{searchValue} ,'%')
+                </when>
+                <when test='searchCondition == "writer"'>
+                    and writer like concat ('%', #{searchValue} ,'%')
+                </when>
+            </choose>
+        </where>
+        order by no desc limit #{pageSize} offset #{offset}
     </select>
 
     <select id="findPage" parameterType="Integer" resultType="com.example.demo.domain.Board">

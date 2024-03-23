@@ -26,7 +26,7 @@
             </ul>
         </div>
         <div th:if="${member} == null">
-            <button class="btn btn-outline-primary ms-2"
+            <button class="btn btn-primary ms-2"
                     type="button"
                     data-bs-toggle="modal" data-bs-target="#write">글쓰기</button>
             <!-- Modal -->
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div th:if="${member} != null">
-            <button class="btn btn-outline-primary ms-2" type="button" onclick="location.href='/board/write'">글쓰기</button>
+            <button class="btn btn-primary ms-2" type="button" onclick="location.href='/board/write'">글쓰기</button>
         </div>
     </div>
     <table class="table mt-4 table-hover table-striped">
@@ -116,38 +116,49 @@
             </ul>
         </nav>
     </div>
-    <div class="d-flex justify-content-center">
-        <div class="dropdown">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <span id="searchBtn">제목</span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" id="title" onclick="btn1()">제목</a></li>
-                <li><a class="dropdown-item" id="content" onclick="btn2()">내용</a></li>
-                <li><a class="dropdown-item" id="writer" onclick="btn3()">글쓴이</a></li>
-            </ul>
+    <form action="/board/lists" method="get">
+        <div class="d-flex justify-content-center">
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span id="searchCondition">제목</span>
+                    <input type="hidden" name="condition" id="condition" value="title">
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" id="title" onclick="btnTitle()">제목</a></li>
+                    <li><a class="dropdown-item" id="content" onclick="btnContent()">내용</a></li>
+                    <li><a class="dropdown-item" id="writer" onclick="btnWriter()">글쓴이</a></li>
+                </ul>
+            </div>
+            <div class="input-group w-25 mb-5">
+                <input type="text" id="searchValue" name="searchValue"
+                       class="form-control ms-1 border border-1" autocomplete="off" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                <input type="submit" value="검색" class="btn btn-success input-group-text" id="btnGroupAddon" >
+            </div>
         </div>
-    <div class="input-group w-25 mb-5">
-        <input type="text" class="form-control ms-1 border border-1" aria-label="Input group example" aria-describedby="btnGroupAddon">
-        <button class="btn btn-success input-group-text" id="btnGroupAddon">검색</button>
-    </div>
-    </div>
+    </form>
 </div>
 <script>
-    function btn1() {
-        const btn = document.getElementById("searchBtn");
+    function btnTitle() {
+        const btn = document.getElementById("searchCondition");
         btn.innerText = "제목"
+        const condition = document.getElementById("condition");
+        condition.value = "title";
     }
 
-    function btn2() {
-        const btn = document.getElementById("searchBtn");
+    function btnContent() {
+        const btn = document.getElementById("searchCondition");
         btn.innerText = "내용"
+        const condition = document.getElementById("condition");
+        condition.value = "content";
     }
 
-    function btn3() {
-        const btn = document.getElementById("searchBtn");
+    function btnWriter() {
+        const btn = document.getElementById("searchCondition");
         btn.innerText = "글쓴이"
+        const condition = document.getElementById("condition");
+        condition.value = "writer";
     }
+
 </script>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

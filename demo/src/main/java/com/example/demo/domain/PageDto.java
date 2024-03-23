@@ -19,6 +19,9 @@ public class PageDto {
     private boolean nextArrow; // >
     private boolean endArrow; // >>
 
+    private String searchCondition;
+    private String searchValue;
+
     public PageDto(int page, int pageSize, int totalCount) {
         this.page = page;
         this.pageSize = pageSize;

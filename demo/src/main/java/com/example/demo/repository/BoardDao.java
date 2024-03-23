@@ -3,6 +3,7 @@ package com.example.demo.repository;
 import com.example.demo.domain.Board;
 import com.example.demo.domain.PageDto;
 import com.example.demo.domain.Recommend;
+import com.example.demo.domain.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

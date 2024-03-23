@@ -14,17 +14,16 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
-public class Page1Controller {
+public class HomeController {
 
     private final UserDao userDao;
 
     @Autowired
-    public Page1Controller(UserDao userDao) {
+    public HomeController(UserDao userDao) {
         this.userDao = userDao;
     }
 
