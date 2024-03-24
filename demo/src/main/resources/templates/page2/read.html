@@ -7,7 +7,7 @@
 </head>
 <body>
 <div th:insert="~{template/fragment/header :: header}"></div>
-<div class="container" style="height: 100vh">
+<div class="container">
     <div class="h2 mb-3">게시판</div>
     <form action="" method="post">
         <input type="text" class="form-control w-75 mb-2" placeholder="제목을 입력해 주세요" name="title" th:value="${board.title}" readonly>
@@ -74,9 +74,12 @@
             </div>
             <span th:text="${board.recommend}" id="recommendNum" class="h1 ms-3" style="line-height: 70px; color: red"></span>
         </div>
-        <div th:insert="~{template/fragment/footer :: footer}" style="margin-top: 400px"></div>
     </form>
-    </div>
+    <hr class="w-100 border border-2 border-primary">
+    <textarea name="" id="" rows="7" class="w-100" placeholder="내용을 입력하세요" style="resize: none"></textarea>
+    <button class="btn btn-primary">등록</button>
+    <hr class="w-100 border border-2 border-primary">
+    <div th:insert="~{template/fragment/footer :: footer}" style="margin-top: 400px"></div>
 </div>
 <!-- 제이쿼리 cdn -->
 <script
