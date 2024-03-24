@@ -68,9 +68,9 @@
             </div>
             <!-- 추천버튼 -->
             <div style="width: 80px; height: 80px" th:if="${member} != null">
-                <button type="button" style="border: none; background-color: white" id="recommendBtn">
-                        <img src="/img/recommend.png" id="recommendImg" alt="" class="img-fluid" style="cursor: pointer">
-                </button>
+                    <button type="button" style="border: none; background-color: white" class="recommendBtn">
+                        <img src="/img/recommend2.png" alt="" class="img-fluid recommendImg" style="cursor: pointer">
+                    </button>
             </div>
             <span th:text="${board.recommend}" id="recommendNum" class="h1 ms-3" style="line-height: 70px; color: red"></span>
         </div>
@@ -97,7 +97,7 @@
     /*]]>*/
 
     $(document).ready(function() {
-        $('#recommendBtn').click(recommend);
+        $('.recommendBtn').click(recommend);
     });
     function recommend() {
         $.ajax({

@@ -1,10 +1,8 @@
 package com.example.demo.repository;
 
-import com.example.demo.domain.Board;
-import com.example.demo.domain.PageDto;
-import com.example.demo.domain.Recommend;
-import com.example.demo.domain.Search;
+import com.example.demo.domain.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

@@ -1,9 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.domain.Board;
-import com.example.demo.domain.PageDto;
-import com.example.demo.domain.Recommend;
-import com.example.demo.domain.Search;
+import com.example.demo.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -68,7 +65,6 @@ public class BoardDao implements AboutBoard{
     public void cancelRecommend(Recommend recommend) {
         aboutBoard.cancelRecommend(recommend);
     }
-
     @Override
     public void modify(Board board) {
         aboutBoard.modify(board);
