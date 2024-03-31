@@ -24,4 +24,14 @@ public class CommentDao implements AboutComment{
     public List<Comment> getComment(Integer boardNo) {
         return aboutComment.getComment(boardNo);
     }
+
+    @Override
+    public void deleteComment(Long no) {
+        aboutComment.deleteComment(no);
+    }
+
+    @Override
+    public void clearComment() {
+        aboutComment.clearComment();
+    }
 }

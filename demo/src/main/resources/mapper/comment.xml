@@ -9,4 +9,12 @@
     <select id="getComment" parameterType="Integer" resultType="com.example.demo.domain.Comment">
         select * from comment where board_no = #{boardNo}
     </select>
+
+    <delete id="deleteComment" parameterType="Long">
+        delete from comment where no = #{no}
+    </delete>
+
+    <delete id="clearComment">
+        delete from comment
+    </delete>
 </mapper>

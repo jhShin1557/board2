@@ -89,7 +89,14 @@
                 <td th:text="${comment.userId}"></td>
                 <td th:text="${comment.content}"></td>
                 <td th:text="${#dates.format(board.regDate, 'yyyy-MM-dd')}" style="text-align: right"></td>
-                <td style="text-align: center"><button class="btn btn-secondary btn-sm" style="line-height: 100%">X</button></td>
+                <td style="text-align: center">
+                    <form action="/board/deleteComment" method="post">
+                        <input type="hidden" name="no" th:value="${comment.no}">
+                        <input type="hidden" name="boardNo" th:value="${comment.boardNo}">
+                        <input type="hidden" name="userId" th:value="${comment.userId}">
+                        <input type="submit" class="btn btn-secondary btn-sm" style="line-height: 100%" value="X">
+                    </form>
+                </td>
             </tr>
         </tbody>
     </table>

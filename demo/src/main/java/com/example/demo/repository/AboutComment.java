@@ -9,4 +9,7 @@ import java.util.List;
 public interface AboutComment {
     void addComment(Comment comment);
     List<Comment> getComment(Integer boardNo);
+    void deleteComment(Long no);
+
+    void clearComment();
 }

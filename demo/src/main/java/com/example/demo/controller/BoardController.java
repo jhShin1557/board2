@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Controller
@@ -112,6 +113,22 @@ public class BoardController {
         Integer boardNo = comment.getBoardNo();
         boardDao.decreaseViews(boardNo); // post 리다이렉트로 조회수도 1 올라가기 때문에 (추후 ajax로 바꿀 예정)
         commentDao.addComment(comment);
+        return "redirect:/board/" + boardNo;
+    }
+
+    @PostMapping("/deleteComment")
+    public String deleteComment(@SessionAttribute(name = "member", required = false) User member, @ModelAttribute Comment comment) {
+        Long commentNo = comment.getNo();
+        Integer boardNo = comment.getBoardNo();
+
+        if (member == null) {
+            boardDao.decreaseViews(boardNo);
+            return "redirect:/board/" + boardNo;
+        }
+        if(Objects.equals(member.getId(), comment.getUserId())) {
+            commentDao.deleteComment(commentNo);
+        }
+        boardDao.decreaseViews(boardNo);
         return "redirect:/board/" + boardNo;
     }
 
