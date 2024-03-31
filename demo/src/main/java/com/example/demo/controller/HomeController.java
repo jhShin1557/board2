@@ -111,7 +111,6 @@ public class HomeController {
 
         if (isCorrect == null) {
             bindingResult.addError(new ObjectError("user",  "아이디 또는 비밀번호를 잘못 입력했습니다."));
-            log.warn("로그인 정보 오류");
             return "page1/login";
         }
 

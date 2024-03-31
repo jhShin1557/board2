@@ -46,7 +46,7 @@
         <div class="d-flex justify-content-center mt-5" style="height: 100px">
             <div style="width: 80px; height: 80px" th:if="${member} == null">
                 <button type="button" style="border: none; background-color: white" data-bs-toggle="modal" data-bs-target="#likeButton">
-                    <img src="/img/recommend.png" alt="" class="img-fluid" style="cursor: pointer">
+                    <img src="/img/recommend2.png" alt="" class="img-fluid" style="cursor: pointer">
                 </button>
                 <!-- Modal -->
                 <div class="modal fade" id="likeButton" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
@@ -75,10 +75,37 @@
             <span th:text="${board.recommend}" id="recommendNum" class="h1 ms-3" style="line-height: 70px; color: red"></span>
         </div>
     </form>
-    <hr class="w-100 border border-2 border-primary">
-    <textarea name="" id="" rows="7" class="w-100" placeholder="내용을 입력하세요" style="resize: none"></textarea>
-    <button class="btn btn-primary">등록</button>
-    <hr class="w-100 border border-2 border-primary">
+    <hr class="w-100 border border-1 border-primary">
+    <div th:each="comment : ${comments}">
+        <span th:text="${comment.userId}"></span><span th:text="${comment.content}"></span><span th:text="${comment.regDate}"></span>
+    </div>
+<!--    댓글입력창 Modal-->
+    <div th:if="${member == null}">
+        <textarea name="" rows="7" class="w-100" placeholder="내용을 입력하세요" style="resize: none"></textarea>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#comment">등록</button>
+        <div class="modal fade" id="comment" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModal">localhost:8080</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        로그인이 필요합니다
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    댓글 입력창-->
+    <div th:if="${member != null}">
+        <textarea id="commentValue" rows="7" class="w-100" placeholder="내용을 입력하세요" style="resize: none"></textarea>
+        <button id="commentBtn" class="btn btn-primary">등록</button>
+    </div>
+    <hr class="w-100 border border-1 border-primary">
     <div th:insert="~{template/fragment/footer :: footer}" style="margin-top: 400px"></div>
 </div>
 <!-- 제이쿼리 cdn -->
@@ -97,11 +124,37 @@
     /*<![CDATA[*/
         const boardNo = /*[[${board.no}]]*/ 1;
         const recommendId = /*[[${member?.id}]]*/ null; <!-- null 가능 문법 ?. -->
+        const userId = /*[[${member?.id}]]*/ null;
     /*]]>*/
 
     $(document).ready(function() {
         $('.recommendBtn').click(recommend);
+        $('#commentBtn').click(comment);
     });
+
+    function comment() {
+        const content = document.getElementById("commentValue").value;
+        $.ajax({
+            type: "post",
+            url: "/comment",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            data: JSON.stringify({
+                "boardNo" : boardNo,
+                "userId": userId,
+                "content": content,
+            }),
+            success: function(result) {
+
+            },
+
+            error: function() {
+                console.log("전송 실패")
+            }
+        })
+    }
+
     function recommend() {
         $.ajax({
             type: "post",
@@ -114,11 +167,6 @@
                 "recommendId": recommendId,
             }),
             success: function(result) {
-                console.log("---------------------------")
-                console.log("전송 성공");
-                console.log("전달받은 데이터:", result);
-                console.log("추천수: ", result.recommend)
-                console.log("---------------------------")
                 document.getElementById("recommendNum").innerText = result.recommend;
                 document.getElementById("recommendText").innerText = "추천 " + result.recommend;
             },

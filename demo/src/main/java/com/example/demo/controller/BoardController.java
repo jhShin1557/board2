@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.*;
 import com.example.demo.repository.BoardDao;
+import com.example.demo.repository.CommentDao;
 import com.example.demo.repository.UserDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,12 @@ public class BoardController {
 
     private final UserDao userDao;
     private final BoardDao boardDao;
+    private final CommentDao commentDao;
     @Autowired
-    public BoardController(UserDao userDao, BoardDao boardDao) {
+    public BoardController(UserDao userDao, BoardDao boardDao, CommentDao commentDao) {
         this.userDao = userDao;
         this.boardDao = boardDao;
+        this.commentDao = commentDao;
     }
 
     @GetMapping("/lists")
@@ -74,8 +77,10 @@ public class BoardController {
     public String read(@SessionAttribute(name = "member", required = false) User member, @PathVariable("number") Integer number, Model model) {
         Board board = boardDao.findPage(number);
         boardDao.increaseViews(number);
+        List<Comment> comments = commentDao.getComment(number);
         model.addAttribute("board", board);
         model.addAttribute("member", member);
+        model.addAttribute("comments", comments);
         return "page2/read";
     }
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.repository.AboutComment">
+    <insert id="addComment" parameterType="com.example.demo.domain.Comment" useGeneratedKeys="true" keyProperty="no">
+        insert into comment (board_no, user_id, content, reg_date) values (#{boardNo}, #{userId}, #{content}, now())
+    </insert>
+
+    <select id="getComment" parameterType="Integer" resultType="com.example.demo.domain.Comment">
+        select * from comment where board_no = #{boardNo}
+    </select>
+</mapper>
