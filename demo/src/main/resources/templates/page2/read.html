@@ -75,10 +75,24 @@
             <span th:text="${board.recommend}" id="recommendNum" class="h1 ms-3" style="line-height: 70px; color: red"></span>
         </div>
     </form>
+<!--    댓글목록-->
     <hr class="w-100 border border-1 border-primary">
-    <div th:each="comment : ${comments}">
-        <span th:text="${comment.userId}"></span><span th:text="${comment.content}"></span><span th:text="${comment.regDate}"></span>
-    </div>
+    <table class="table">
+        <colgroup>
+            <col width=10%>
+            <col width=75%>
+            <col width=10%>
+            <col width=5%>
+        </colgroup>
+        <tbody>
+            <tr th:each="comment : ${comments}">
+                <td th:text="${comment.userId}"></td>
+                <td th:text="${comment.content}"></td>
+                <td th:text="${#dates.format(board.regDate, 'yyyy-MM-dd')}" style="text-align: right"></td>
+                <td style="text-align: center"><button class="btn btn-secondary btn-sm" style="line-height: 100%">X</button></td>
+            </tr>
+        </tbody>
+    </table>
 <!--    댓글입력창 Modal-->
     <div th:if="${member == null}">
         <textarea name="" rows="7" class="w-100" placeholder="내용을 입력하세요" style="resize: none"></textarea>
