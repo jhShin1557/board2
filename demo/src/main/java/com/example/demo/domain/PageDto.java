@@ -30,7 +30,7 @@ public class PageDto {
         totalPage = (totalCount - 1) / pageSize + 1;
         startPage = (this.page - 1) / 10 * 10 + 1;
         endPage = Math.min(startPage + 9, totalPage);
-        offset = (page - 1) * 10;
+        offset = (page - 1) * pageSize;
         
         prevArrow = startPage != 1;
         startArrow = startPage != 1;
