@@ -43,13 +43,4 @@ public class JsonController {
 
         return board;
     }
-
-    @RequestMapping("/comment")
-    public List<Comment> comment(@RequestBody Comment comment) {
-        Integer boardNo = comment.getBoardNo();
-        commentDao.addComment(comment);
-        List<Comment> comments = commentDao.getComment(boardNo);
-        return comments;
-
-    }
 }

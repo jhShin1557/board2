@@ -47,6 +47,11 @@ public class BoardDao implements AboutBoard{
     }
 
     @Override
+    public void decreaseViews(Integer number) {
+        aboutBoard.decreaseViews(number);
+    }
+
+    @Override
     public void increaseRecommend(Integer number) {
         aboutBoard.increaseRecommend(number);
     }

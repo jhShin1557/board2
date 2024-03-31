@@ -53,6 +53,10 @@
         update board set views = views + 1 where no = #{number}
     </update>
 
+    <update id="decreaseViews" parameterType="Integer">
+        update board set views = views - 1 where no = #{number}
+    </update>
+
     <update id="increaseRecommend" parameterType="Integer">
         update board set recommend = recommend + 1 where no = #{number}
     </update>

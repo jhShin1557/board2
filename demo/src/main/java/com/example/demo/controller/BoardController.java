@@ -107,4 +107,12 @@ public class BoardController {
         return "redirect:/board/lists";
     }
 
+    @PostMapping("/comment")
+    public String comment(@ModelAttribute Comment comment) {
+        Integer boardNo = comment.getBoardNo();
+        boardDao.decreaseViews(boardNo); // post 리다이렉트로 조회수도 1 올라가기 때문에 (추후 ajax로 바꿀 예정)
+        commentDao.addComment(comment);
+        return "redirect:/board/" + boardNo;
+    }
+
 }

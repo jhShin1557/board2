@@ -14,6 +14,7 @@ public interface AboutBoard {
     Board findPage(Integer number);
     void delete(Integer number);
     void increaseViews(Integer number);
+    void decreaseViews(Integer number);
     void increaseRecommend(Integer number);
     void decreaseRecommend(Integer number);
     void recommend(Recommend recommend);
